@@ -13,12 +13,8 @@ app.use(express.static( 'publichtml'))
 
 
 //get something from server(backened) and front end
-app.get('/form',(req,res) => 
-                 {res.sendFile(__dirname + '/publichtml/index.html')})
-
-
-app.get('/',(req,res) =>{res.sendStatus(200)})
-
+app.get('/',(req,res) => 
+                 {res.sendFile(__dirname + '/publichtml')})
 
 //get something from client and send to backend 
 app.post('/', (req,res)=>{ 
