@@ -14,7 +14,7 @@ app.use(express.static( 'publichtml'))
 
 //get something from server(backened) and front end
 app.get('/',(req,res) => 
-                 {res.sendFile(__dirname + '/publichtml')})
+                 {res.sendFile(__dirname + '/publichtm/index.html')})
 
 //get something from client and send to backend 
 app.post('/', (req,res)=>{ 
