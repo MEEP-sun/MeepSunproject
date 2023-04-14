@@ -44,6 +44,5 @@ jobs:
         script: |
           killall node
           nohup node index.js >> app.log 2>&1 &
-          sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8081
-
+     
 
