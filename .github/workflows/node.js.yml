@@ -42,6 +42,7 @@ jobs:
         key: ${{ secrets.KEY }}
         port: 22
         script: |
+          killall node
           nohup node index.js >> app.log 2>&1 &
         
 
