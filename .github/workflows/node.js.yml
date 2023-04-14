@@ -42,6 +42,6 @@ jobs:
         key: ${{ secrets.KEY }}
         port: 22
         script: |
-          kill -9 39876
+          kill -9
         
 
