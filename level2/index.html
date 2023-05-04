@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Random Restaurant Generator</title>
+  </body>
+
+  <meta name="theme-color" content="#1E90FF">
+  <style>
+    body {
+      margin: 0; /* remove default margin */
+      padding: 0; /* remove default padding */
+    }
+    header {
+      background-color: #cf99e2; /* set the background color of the header */
+      color: #223856; /* set the text color of the header to white */
+      text-align: center;
+      padding: 50px; /* add some padding to the top and bottom of the header */
+    }
+    h1 {
+      margin: 0; /* remove default margin */
+      font-size: 36px; /* set the font size of the title */
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Don't Worry, We Will Decide For You!</h1>
+  </header>
+</body>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+  </head>
+  <body style="background-color:rgb(251, 201, 210);">
+    <h1 style="text-align:center" class="title">Random Restaurant Generator</h1>
+    <form action="/getzipcode" method="GET">
+      <p style="text-align:center" > Enter your zipcode: </p> <input type="text" id="zipcode" name="zipcode">
+      <style> body{text-align: center }</style>
+       <br/>
+<label for="cuisine-select">Cuisine:</label>
+<select id="cuisine-select">
+  <option value="all">All Cuisines</option>
+  <option value="Italian">Asian</option>
+  <option value="Mexican">American</option>
+  <option value="Asian">Mexican</option>
+  <option value="American">Italian</option>
+</select>
+
+<label for="price-range">Price Range:</label>
+<input type="range" id="price-range" min="1" max="4" value="2" step="1">
+<p id="price-label">$$</p>
+      <input type="submit" id="selectbutton" value="submit">
+    </form>
+    <div id="output">
+    </div>
+  </body>
+
+<script src="app.js"></script> 
+</body>
+</script>
+
+<!-- JavaScript for filtering results -->
+<script>
+
+  // Get references to HTML elements
+  var cuisineSelect = document.getElementById('cuisine-select');
+  var priceRange = document.getElementById('price-range');
+  var priceLabel = document.getElementById('price-label');
+  var locationInput = document.getElementById('location-input');
+  var restaurantList = document.getElementById('restaurants');
+
+  // Define a function to filter restaurants based on user input
+  function filterRestaurants() {
+    var filteredRestaurants = restaurants.filter(function(restaurant) {
+      // Check cuisine
+      if (cuisineSelect.value !== 'all' && cuisineSelect.value !== restaurant.cuisine) {
+        return false;
+      }
+      // Check price
+      if (restaurant.price > priceRange.value) {
+        return false;
+      }
+      // Check location
+      if (locationInput.value.trim() !== '' && !restaurant.location.toLowerCase().includes(locationInput.value.toLowerCase())) {
+        return false;
+      }
+      return true;
+    });
+
+    // Display filtered restaurants
+    restaurantList.innerHTML = '';
+    filteredRestaurants.forEach(function(restaurant) {
+      var li = document.createElement('li');
+      li.textContent = restaurant.name;
+      restaurantList.appendChild(li);
+    });
+  }
+
+  // Attach event listeners to filter inputs
+  cuisineSelect.addEventListener('change', filterRestaurants);
+  priceRange.addEventListener('input', function() {
+    priceLabel.textContent = '$'.repeat(priceRange.value);
+    filterRestaurants();
+  });
+  locationInput.addEventListener('input', filterRestaurants);
+
+  // Display initial list of all restaurants
+  filterRestaurants();
+</script>
+
+<body>
+	<h1>You think of something but can't decide?</h1>
+    <h1>Enter the options here, and we'll pick it for you!</h1>
+	<p>Enter your choices below</p>
+	<form>
+		<textarea id="items-input" name="items-input" rows="5" cols="50" placeholder="separated by commas"></textarea>
+        <br>
+		<button type="button" id="pick-button">Pick a random item</button>
+	</form>
+	<p style="font-size: 30px;" id="random-item"></p>
+	<script>
+		const itemsInput = document.getElementById('items-input');
+		const pickButton = document.getElementById('pick-button');
+		const randomItem = document.getElementById('random-item');
+
+		pickButton.addEventListener('click', () => {
+			const items = itemsInput.value.split(',');
+			const randomIndex = Math.floor(Math.random() * items.length);
+			const pickedItem = items[randomIndex].trim();
+			randomItem.innerText = `${pickedItem}`;
+		});
+	</script>
+</body>
+

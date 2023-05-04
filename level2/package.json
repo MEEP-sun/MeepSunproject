@@ -1,0 +1,16 @@
+{
+  "name": "rand-rest-generator",
+  "version": "1.0.0",
+  "description": "generate the restaurant",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.16.2",
+    "yelp-fusion": "^2.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

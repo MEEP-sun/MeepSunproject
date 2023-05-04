@@ -1,0 +1,60 @@
+.roulette_center {
+  position: absolute;
+  top: 255px;
+  left: 258px;
+  cursor: pointer;
+}
+
+.roulette_center:hover {
+  transform: scale(1.01);        
+}
+
+.roulette_wheel{
+  touch-action: auto;
+  pointer-events:painted
+}
+
+.single-input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.single-input-wrapper > label {
+  width: 150px;
+}
+
+.single-input-wrapper > input {
+  width: 150px;
+}
+
+#score {
+  position: absolute;
+  top: 0px;
+  left: 360px;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+#indicator {
+   position: absolute;
+   top: 30px;
+   left: 350px;
+   background-color: red;
+   width: 1px;
+   height: 60px; 
+}
+#all-input-wrappers {
+  z-index: 10;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: 0.2;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.2s;
+}
+
+#all-input-wrappers:hover {
+  opacity: 0.8;
+}
