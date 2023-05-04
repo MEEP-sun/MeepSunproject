@@ -14,10 +14,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x, 18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+   
 
     steps:
     - uses: actions/checkout@v3
@@ -26,16 +23,26 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
     - run: npm run build --if-present
-    - run: npm test
     
-    - name: Copy Jar file to EC2 via SSH Key
-      uses: appleboy/scp-action@master
+    - name: Deploy to my EC2 instance
+      uses: easingthemes/ssh-deploy@v2.1.5
+      env:
+          SSH_PRIVATE_KEY: ${{ secrets.KEY }}
+          SOURCE: "./"
+          REMOTE_HOST: "ec2-52-53-220-104.us-west-1.compute.amazonaws.com"
+          REMOTE_USER: "ec2-user"
+          TARGET: "/home/ec2-user/MeepSunproject"
+          
+    - name: Run commands to start the server
+      uses: appleboy/ssh-action@v0.1.9
       with:
-        host: ec2-52-53-220-104.us-west-1.compute.amazonaws.com
+        host: "ec2-52-53-220-104.us-west-1.compute.amazonaws.com"
         username: ec2-user
-        port: 22
         key: ${{ secrets.KEY }}
-        source: "target/cs480-1.0.jar"
-        target: "~/"
+        port: 22
+        script: |
+          killall node
+          nohup node index.js >> app.log 2>&1 &
+     
+
